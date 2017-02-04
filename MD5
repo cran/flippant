@@ -1,4 +1,4 @@
-40615cb1c3b2381f9fc296478c5e9739 *DESCRIPTION
+ec7f6bf64d67607de84013d1a64a0adb *DESCRIPTION
 1e9bfdf60305d057c58b90bfd3217458 *NAMESPACE
 1fe8ed506b958d7eddd59a91aa5eecd2 *R/extract_case_study_data.R
 b80774f65ce0a8a2dc56e05043b22a98 *R/flippant-package.R
@@ -14,12 +14,11 @@ f9af50892eaa7bd72fa54c122f5bf9e4 *R/parse_manual_output.R
 556069cbc8e08d489d435fecf27de6c5 *R/scramblase_assay_plot.R
 d10e3e095574ac0730a44aca7056a9a9 *R/scramblase_assay_stats.R
 b50f6a5c73727d5f2f2b8d6ef493282a *R/scramblase_assay_traces.R
-1e9043b6813b23f530440d96aa52790a *README.md
 329e46619896402599736e9e575402e2 *inst/extdata/PloierEtAl_Data.zip
-c7d0b687cd70c3b3e650325145ab82a5 *man/extract_case_study_data.Rd
-81259d7b3f444803c6cf64cac7457941 *man/flippant.Rd
-0253a01a0d2d6ceb442cc0207b5eb5c8 *man/parse_felix_32_output.Rd
-63d4598ee05a0a26bc25c2a11ecbdc9e *man/parse_felix_gx_output.Rd
-d0bedbc5c5076ee181971fe9fdbd4f68 *man/parse_fluorimeter_output.Rd
-8d208b8e8d87eaaaaac105d1109b2c9f *man/parse_manual_output.Rd
-85dac67c312883f1d70a5aeac4234d21 *man/scramblase_assay_plot.Rd
+092aee375d2bfc977e0986f6bc0dac51 *man/extract_case_study_data.Rd
+217ec7dfc2845609823e7d51f0eea7d6 *man/flippant.Rd
+f7dda53ee7f293e4eb019ab31188a157 *man/parse_felix_32_output.Rd
+4a5a929b3c776c436f527432c79664c5 *man/parse_felix_gx_output.Rd
+fed185cbdeacdd39703f591a8b5ccfac *man/parse_fluorimeter_output.Rd
+ffe91aaffcbca9b2bc52deecfb9c57c9 *man/parse_manual_output.Rd
+a551dd18471235eb7a69c74310c2ec87 *man/scramblase_assay_plot.Rd

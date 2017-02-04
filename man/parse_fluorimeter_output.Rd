@@ -57,16 +57,15 @@ fluor_file <- extract_case_study_data(analysis_dir, "wildtypeEx1_0.txt")
 parse_fluorimeter_output(fluor_file) \%>\%
   str()
 }
-\author{
-Johannes Graumann
-}
 \seealso{
 \code{scramblase_assay_input_validation},
 \code{\link[flippant]{parse_felix_gx_output}}, 
 \code{\link[flippant]{parse_felix_32_output}},
 \code{\link[flippant]{parse_manual_output}}
 }
+\author{
+Johannes Graumann
+}
 \keyword{IO}
 \keyword{file}
 \keyword{manip}
-

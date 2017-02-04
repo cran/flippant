@@ -21,15 +21,14 @@ Parse spectra from files provided by a QuantaMaster fluorimeter
 \details{
 A helper function to \code{\link{parse_fluorimeter_output}}.
 }
-\author{
-Johannes Graumann
-}
 \seealso{
 \code{\link{parse_fluorimeter_output}}, 
 \code{\link[flippant]{parse_felix_32_output}},
 \code{\link[flippant]{parse_manual_output}}
 }
+\author{
+Johannes Graumann
+}
 \keyword{IO}
 \keyword{file}
 \keyword{manip}
-

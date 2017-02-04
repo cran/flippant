@@ -22,15 +22,14 @@ A helper function to \code{\link{parse_fluorimeter_output}}.
 The file in question is supposed to contain a tab-delimited table
 with the columns \code{Time (sec)} and \code{Fluorescense Intensity}.
 }
-\author{
-Johannes Graumann
-}
 \seealso{
 \code{\link{parse_fluorimeter_output}},
 \code{\link[flippant]{parse_felix_gx_output}}, 
 \code{\link[flippant]{parse_felix_32_output}}
 }
+\author{
+Johannes Graumann
+}
 \keyword{IO}
 \keyword{file}
 \keyword{manip}
-

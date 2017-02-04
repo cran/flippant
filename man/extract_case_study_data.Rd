@@ -22,10 +22,9 @@ Extracts the data files used by the case study from the zip archive.
 \examples{
 extract_case_study_data(tempfile("flippant"))
 }
-\author{
-Richard Cotton
-}
 \seealso{
 \code{\link[utils]{unzip}}
 }
-
+\author{
+Richard Cotton
+}
