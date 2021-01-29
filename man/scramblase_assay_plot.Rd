@@ -5,32 +5,60 @@
 \name{scramblase_assay_input_template}
 \alias{scramblase_assay_input_template}
 \alias{scramblase_assay_plot}
-\alias{scramblaseAssayCalculations}
-\alias{scramblase_assay_input_template}
-\alias{scramblase_assay_stats}
-\alias{scramblase_assay_traces}
+\alias{scramblase_assay_calculations}
 \alias{scramblase_assay_stats}
 \alias{scramblase_assay_traces}
 \title{scramblase_assay_plot}
 \usage{
-scramblase_assay_input_template(path = "scramblase_assay_input_template.txt")
+scramblase_assay_input_template(
+  path = "scramblase_assay_input_template.txt",
+  input_directory = NULL,
+  overwrite = FALSE
+)
 
-scramblase_assay_plot(x, scale_to = c("model", "data"),
-  ppr_scale_factor = 0.65, force_through_origin = TRUE,
-  generation_of_algorithm = c(2, 1), split_by_experiment = TRUE,
-  r_bar = 88, sigma_r_bar = 28)
+scramblase_assay_plot(
+  x,
+  scale_to = c("model", "data"),
+  ppr_scale_factor = 0.65,
+  force_through_origin = TRUE,
+  generation_of_algorithm = c(2, 1),
+  split_by_experiment = TRUE,
+  r_bar = 88,
+  sigma_r_bar = 28
+)
 
-scramblase_assay_stats(x, scale_to = c("model", "data"),
-  ppr_scale_factor = 0.65, force_through_origin = TRUE,
-  generation_of_algorithm = c(2, 1), split_by_experiment = TRUE,
-  r_bar = 88, sigma_r_bar = 28)
+scramblase_assay_stats(
+  x,
+  scale_to = c("model", "data"),
+  ppr_scale_factor = 0.65,
+  force_through_origin = TRUE,
+  generation_of_algorithm = c(2, 1),
+  split_by_experiment = TRUE,
+  r_bar = 88,
+  sigma_r_bar = 28
+)
 
-scramblase_assay_traces(x, ppr_scale_factor = 0.65, time_min_sec = NA_real_,
-  time_max_sec = NA_real_, adjust = TRUE)
+scramblase_assay_traces(
+  x,
+  ppr_scale_factor = 0.65,
+  time_min_sec = NA_real_,
+  time_max_sec = NA_real_,
+  adjust = TRUE,
+  timepoint_of_measurement = 400,
+  n_averaging = 10,
+  annotate_traces = FALSE
+)
 }
 \arguments{
 \item{path}{\code{\link{character}} object giving the path of an \bold{empty}
 template for a spreadsheet that can provide \code{x}.}
+
+\item{input_directory}{if not \code{NULL}, \code{\link{character}} object
+giving the path to a directory where spectrometer output resides for the
+prepopulation of the template spreadsheet.}
+
+\item{overwrite}{\code{\link{logical}} object allowing to overwrite existing
+template paths.}
 
 \item{x}{\code{\link{data.frame}} or path to a tab delimited file 
 representing it (see "Details").}
@@ -76,13 +104,23 @@ this value (in seconds).}
 \item{adjust}{A single \code{\link{logical}}, indicating whether (default) or 
 not spectral traces to be plotted are algorithmically aligned at the time
 point of dithionite addition.}
+
+\item{timepoint_of_measurement}{A \code{\link{numeric}} indicating the time
+(in sec) at which fluorescence extrema are calculated (DEPENDENT ON
+\code{adjust}!).}
+
+\item{n_averaging}{A \code{\link{numeric}} indicating the number of
+data points used for extrema calculations.}
+
+\item{annotate_traces}{A \code{\link{logical}} idicating whether fluorescence
+traces should be annotated.}
 }
 \value{
 \code{scramblase_assay_traces} and \code{scramblase_assay_plot} return 
 \code{\link{ggplot}} objects representing the raw fluorescence traces and a
-complete PPR plot, respectively. \code{scramblaseAssayInputTemplate} 
-generates a tab-delimited \code{ASCII} file in the file system and does not
-provide further output. \code{scramblaseAssayStats} assembles (and prints) 
+complete PPR plot, respectively. \code{scramblase_assay_input_template} 
+generates a tab-delimited \code{ASCII} file in the file system and invisibly
+returns the path name. \code{scramblase_assay_stats} assembles (and prints) 
 assay statistics as a \code{\link{data.frame}}.
 }
 \description{
@@ -97,7 +135,11 @@ must have the following \bold{mandatory} columns:
  \item{\code{Path}:}{Paths to existing and readable \code{ASCII} output files 
    of a fluorimeter. See \code{\link{parse_fluorimeter_output}} for details and
    supported formats.}
- \item{\code{Protein Reconstituted (mg)}:}{Self-explanatory.}}
+ \item{\code{Protein Reconstituted (mg)}:}{Self-explanatory. In the case of
+   \code{\link{scramblase_assay_traces}} \strong{ONLY} this may be abused by
+    taking \code{\link{character}} values rather than the usually required
+    \code{\link{numeric}}s. Handy when e.g. plotting traces for "Liposomes"
+    and "Proteoliposomes", rather than defined PPRs.}}
 
 Further (\bold{facultative}) columns are:
 \describe{
@@ -133,7 +175,7 @@ function \code{scramblase_assay_calculations}):
  \item{Fluorescence spectra are parsed using 
    \code{\link{parse_fluorimeter_output}}. This includes automated 
    determination of when dithionite was added to the sample using 
-   \pkg{wmtsa}-supplied methodology and resetting the acquisition time 
+   \pkg{pracma}-supplied methodology and resetting the acquisition time 
    accordingly (\code{0} henceforth corresponds to the time of addition).}
  \item{Pre-dithionite-addition \code{Baseline Fluorescence} is determined for
    each spectrum by averaging (\code{\link{median}}) over the 10 
@@ -222,7 +264,8 @@ template_file <- file.path(analysis_dir, "inputTable.txt")
 # Plot the spectral traces
 scramblase_assay_traces(
   template_file,
-  time_max_sec = 350)
+  time_max_sec = 350,
+  timepoint_of_measurement = 350)
 # Plot the PPR plot(s) faceting by experiment
 scramblase_assay_plot(template_file)
 # Generate tabular results

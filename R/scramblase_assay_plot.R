@@ -1,5 +1,5 @@
 #' @title scramblase_assay_plot
-#' @aliases scramblaseAssayCalculations scramblase_assay_input_template 
+#' @aliases scramblase_assay_calculations scramblase_assay_input_template 
 #' scramblase_assay_plot scramblase_assay_stats scramblase_assay_traces
 #' @description Functions for the presentation and evaluaton of dithionite 
 #' scramblase assays
@@ -10,7 +10,11 @@
 #'  \item{\code{Path}:}{Paths to existing and readable \code{ASCII} output files 
 #'    of a fluorimeter. See \code{\link{parse_fluorimeter_output}} for details and
 #'    supported formats.}
-#'  \item{\code{Protein Reconstituted (mg)}:}{Self-explanatory.}}
+#'  \item{\code{Protein Reconstituted (mg)}:}{Self-explanatory. In the case of
+#'    \code{\link{scramblase_assay_traces}} \strong{ONLY} this may be abused by
+#'     taking \code{\link{character}} values rather than the usually required
+#'     \code{\link{numeric}}s. Handy when e.g. plotting traces for "Liposomes"
+#'     and "Proteoliposomes", rather than defined PPRs.}}
 #' 
 #' Further (\bold{facultative}) columns are:
 #' \describe{
@@ -46,7 +50,7 @@
 #'  \item{Fluorescence spectra are parsed using 
 #'    \code{\link{parse_fluorimeter_output}}. This includes automated 
 #'    determination of when dithionite was added to the sample using 
-#'    \pkg{wmtsa}-supplied methodology and resetting the acquisition time 
+#'    \pkg{pracma}-supplied methodology and resetting the acquisition time 
 #'    accordingly (\code{0} henceforth corresponds to the time of addition).}
 #'  \item{Pre-dithionite-addition \code{Baseline Fluorescence} is determined for
 #'    each spectrum by averaging (\code{\link{median}}) over the 10 
@@ -125,6 +129,11 @@
 #'  }}
 #' @param path \code{\link{character}} object giving the path of an \bold{empty}
 #' template for a spreadsheet that can provide \code{x}.
+#' @param input_directory if not \code{NULL}, \code{\link{character}} object
+#' giving the path to a directory where spectrometer output resides for the
+#' prepopulation of the template spreadsheet.
+#' @param overwrite \code{\link{logical}} object allowing to overwrite existing
+#' template paths.
 #' @param x \code{\link{data.frame}} or path to a tab delimited file 
 #' representing it (see "Details").
 #' @param ppr_scale_factor \code{\link{numeric}} object providing a scale factor
@@ -144,6 +153,11 @@
 #' @param adjust A single \code{\link{logical}}, indicating whether (default) or 
 #' not spectral traces to be plotted are algorithmically aligned at the time
 #' point of dithionite addition.
+#' @param timepoint_of_measurement A \code{\link{numeric}} indicating the time
+#' (in sec) at which fluorescence extrema are calculated (DEPENDENT ON
+#' \code{adjust}!).
+#' @param n_averaging A \code{\link{numeric}} indicating the number of
+#' data points used for extrema calculations.
 #' @param generation_of_algorithm Either \code{2} or \code{1}
 #' (\code{\link{numeric}}; defaulting to \code{2}). See "Details".
 #' @param split_by_experiment A single \code{\link{logical}}, indicating whether or
@@ -159,11 +173,13 @@
 #' deviationaverage of the radius distribution  of the liposomes used in the
 #' assay. Only used in \code{generatio_of_algorithm = 2} and defaulting to
 #' \code{28} (see Ploier et al. 2016 for details).
+#' @param annotate_traces A \code{\link{logical}} idicating whether fluorescence
+#' traces should be annotated.
 #' @return \code{scramblase_assay_traces} and \code{scramblase_assay_plot} return 
 #' \code{\link{ggplot}} objects representing the raw fluorescence traces and a
-#' complete PPR plot, respectively. \code{scramblaseAssayInputTemplate} 
-#' generates a tab-delimited \code{ASCII} file in the file system and does not
-#' provide further output. \code{scramblaseAssayStats} assembles (and prints) 
+#' complete PPR plot, respectively. \code{scramblase_assay_input_template} 
+#' generates a tab-delimited \code{ASCII} file in the file system and invisibly
+#' returns the path name. \code{scramblase_assay_stats} assembles (and prints) 
 #' assay statistics as a \code{\link{data.frame}}.
 #' @author Johannes Graumann
 #' @references Menon, I., Huber, T., Sanyal, S., Banerjee, S., Barre, P., Canis, 
@@ -191,7 +207,8 @@
 #' # Plot the spectral traces
 #' scramblase_assay_traces(
 #'   template_file,
-#'   time_max_sec = 350)
+#'   time_max_sec = 350,
+#'   timepoint_of_measurement = 350)
 #' # Plot the PPR plot(s) faceting by experiment
 #' scramblase_assay_plot(template_file)
 #' # Generate tabular results

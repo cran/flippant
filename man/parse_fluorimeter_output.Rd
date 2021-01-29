@@ -4,19 +4,38 @@
 \alias{parse_fluorimeter_output}
 \title{parse_fluorimeter_output}
 \usage{
-parse_fluorimeter_output(spec_file = NULL, adjust = TRUE,
-  file_type = c("auto", "FelixGXv4.1.0.3096", "Felix32v1.20", "manual"))
+parse_fluorimeter_output(
+  spec_file = NULL,
+  timepoint_of_measurement = NULL,
+  n_averaging = 10,
+  determine_zero_time = TRUE,
+  adjust = TRUE,
+  file_type = c("auto", "FelixGXv4.1.0.3096", "Felix32v1.20", "FluorSEssencev3.8",
+    "manual")
+)
 }
 \arguments{
 \item{spec_file}{Path to a \file{*.txt} file as a \code{\link{character}} 
 object.}
+
+\item{timepoint_of_measurement}{A \code{\link{numeric}} indicating the time
+(in sec) at which fluorescence extrema are calculated (DEPENDENT ON
+\code{adjust}!).}
+
+\item{n_averaging}{A \code{\link{numeric}} indicating the number of
+data points used for extrema calculations.}
+
+\item{determine_zero_time}{A \code{\link{logical}} indicating whether
+(default) or not the timepoint of dithionite addition should be determined
+using \pkg{pracma}-derived functionality.}
 
 \item{adjust}{A \code{\link{logical}} indicating of whether (default) or not
 acquisition time should be reset to have \code{0} (zero) coincide with the 
 addition of dithionite (see 'Details' section).}
 
 \item{file_type}{A string specifying whether or the file was created using
-Felix GX or Felix 32 or is a "manual" tab delimited file.}
+Felix GX or Felix 32 or FluorS Essence v3.8 or is a "manual" tab delimited
+file.}
 }
 \value{
 A data frame with two columns:
@@ -25,8 +44,13 @@ A data frame with two columns:
 \item{Fluorescence.Intensity}{Numeric. Intensity of fluorescence (relative 
 scale, no official unit).}
 }
+If \code{determine_zero_time} and/or \code{adjust} are set to \code{TRUE},
+the return value will have an attribute \code{ZeroTimePoint} corresponding to
+the determined time point of dithionite addition (always \code{0} (zero)
+where \code{adjust == TRUE}).
+
 For Felix GX, if the file contains the information, the return value will  
-also have anattribute \code{WavelengthsInNanometres}, which contains the 
+also have an attribute \code{WavelengthsInNanometres}, which contains the 
 excitation and emission wavelengths.
 }
 \description{
@@ -39,13 +63,14 @@ function to scramblase activity determinations from dithionite assays.
 The function is currently capable to deal with input derived from 
 QuantaMaster instruments (Photon Technology International, Inc., Edison, 
 New Jersey)running software versions \code{FelixGX v4.1} 
-(see \code{\link{parse_felix_gx_output}}) and \code{Felix32 v1.20} (see 
-\code{\link{parse_felix_32_output}}). The format used in a given file is 
-divined from the data structure and appropriate internal parsing functions  
-are called.
+(see \code{\link{parse_felix_gx_output}}), \code{Felix32 v1.20} (see 
+\code{\link{parse_felix_32_output}}) as well as Horiba fluorimeters 
+(HORIBA Europe GmbH, Oberursel, Germany) using \code{FluorS Essence v3.8}.
+The format used in a given file is divined from the data structure and
+appropriate internal parsing functions are called.
 
 If requested the time point of dithionite addition to a sample is determined 
-using \pkg{wmtsa}-supplied methodology and the acquisition time reset
+using \pkg{pracma}-supplied methodology and the acquisition time reset
 accordingly (\code{0} henceforth corresponds to the time of addition).
 }
 \examples{
@@ -54,13 +79,14 @@ library(magrittr)
 analysis_dir <- file.path(tempdir(), "flippant-case-study")
 fluor_file <- extract_case_study_data(analysis_dir, "wildtypeEx1_0.txt")
 # Parse an exemplary file
-parse_fluorimeter_output(fluor_file) \%>\%
+parse_fluorimeter_output(fluor_file, timepoint_of_measurement = 350) \%>\%
   str()
 }
 \seealso{
 \code{scramblase_assay_input_validation},
 \code{\link[flippant]{parse_felix_gx_output}}, 
 \code{\link[flippant]{parse_felix_32_output}},
+\code{\link[flippant]{parse_FluorS_Essence_3.8_output}},
 \code{\link[flippant]{parse_manual_output}}
 }
 \author{

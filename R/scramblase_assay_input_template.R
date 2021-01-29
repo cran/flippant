@@ -1,11 +1,20 @@
 #' @rdname scramblase_assay_plot
 #' @importFrom magrittr %>%
 #' @export
-scramblase_assay_input_template <- function(path="scramblase_assay_input_template.txt"){
+scramblase_assay_input_template <- function(
+  path = "scramblase_assay_input_template.txt", input_directory = NULL,
+  overwrite = FALSE){
 # Check input -------------------------------------------------------------
-  path %>%
-    assertive.strings::assert_is_a_non_empty_string() %>%
-    assertive.files::assert_any_are_existing_files()
+  assertive.types::assert_is_a_bool(overwrite)
+  assertive.strings::assert_is_a_non_empty_string(path)
+  if (!overwrite) {
+    assertive.base::assert_all_are_false(
+      assertive.files::assert_any_are_existing_files(path))
+  }
+  if (!is.null(input_directory)) {
+    assertive.strings::assert_is_a_non_empty_string(input_directory)
+    assertive.files::assert_all_are_dirs(input_directory)
+  }
 
 # Generate template data.frame --------------------------------------------
   # Create data structure in list form
@@ -60,7 +69,7 @@ scramblase_assay_input_template <- function(path="scramblase_assay_input_templat
         }
       })
   # Assemble the data.frame
-  commentedDataStructure %>%
+  commentedDataStructure %<>%
     magrittr::extract(2:length(.)) %>%
     lapply(
       function(x){
@@ -71,12 +80,30 @@ scramblase_assay_input_template <- function(path="scramblase_assay_input_templat
       }
     ) %>%
     plyr::rbind.fill() %>%
-    magrittr::set_names(dataStructure %>% magrittr::extract2(1)) %>%
+    magrittr::set_names(dataStructure %>% magrittr::extract2(1))
+  # Get files in input_directory for prepopulation
+  if (!is.null(input_directory))
+  {
+    paths <- input_directory %>%
+        list.files()
+    tmp_content <- matrix(
+      nrow = length(paths),
+      ncol = ncol(commentedDataStructure)) %>%
+      as.data.frame() %>%
+      magrittr::set_colnames(names(commentedDataStructure))
+    tmp_content$Path <- paths
+    tmp_content[is.na(tmp_content)] <- ''
+    commentedDataStructure %<>%
+      plyr::rbind.fill(
+        tmp_content)
+  }
+  
   # Write the table out
-    utils::write.table(
-      file=path,
-      sep="\t",
-      row.names=FALSE)
+  commentedDataStructure %>%
+    utils::write.table(file = path, quote = FALSE, sep = "\t",
+                       row.names = FALSE)
+  # Silently return path
+  invisible(path)
 }
 
 # Add global variables to satisfy 'R CMD check' ---------------------------

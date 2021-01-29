@@ -7,27 +7,32 @@ Description: The lipid scrambling activity of protein extracts and purified
     assays, as well as a platform for review, dissemination and extension of the
     strategies it employs. The package's name derives from a play on the fact
     that lipid scrambling is also sometimes referred to as 'flipping'.
-Version: 1.1.0
+    The package is originally published as Cotton, R.J., Ploier, B., Goren,
+    M.A., Menon, A.K., and Graumann, J. (2017). flippant–An R package for the
+    automated analysis of fluorescence-based scramblase assays. BMC
+    Bioinformatics 18, 146. <DOI: 10.1186/s12859-017-1542-y>.
+Version: 1.5.2
 Author: Johannes Graumann [cre, aut],
-    Richard Cotton [ctb]
-Maintainer: Johannes Graumann <jog2030@qatar-med.cornell.edu>
+  Richard Cotton [ctb]
+Maintainer: Johannes Graumann <johannes.graumann@mpi-bn.mpg.de>
 Authors@R: c(person("Johannes", "Graumann", email =
-    "jog2030@qatar-med.cornell.edu", role = c("cre", "aut")),
+    "johannes.graumann@mpi-bn.mpg.de", role = c("cre", "aut")),
     person("Richard","Cotton", email = "richierocks@gmail.com",
     role = c("ctb")))
-Depends: R (>= 3.3.2), ggplot2 (>= 2.2.1)
+Depends: R (>= 3.5.0), ggplot2 (>= 2.2.1)
 Suggests: bookdown, devtools, microbenchmark, multipanelfigure, pander,
         roxygen2, tools
-Imports: assertive.files (>= 0.0-2), assertive.numbers (>= 0.0-2),
-        assertive.properties (>= 0.0-4), assertive.strings (>= 0.0-3),
-        assertive.types (>= 0.0-3), data.table (>= 1.10.4), magrittr
-        (>= 1.5), minpack.lm (>= 1.2-1), plyr (>= 1.8.4), RcppRoll (>=
-        0.2.2), stringi (>= 1.1.2), utils, withr (>= 1.0.2), wmtsa (>=
-        2.0-2)
+Imports: assertive.base (>= 0.0-7), assertive.files (>= 0.0-2),
+        assertive.numbers (>= 0.0-2), assertive.properties (>= 0.0-4),
+        assertive.strings (>= 0.0-3), assertive.types (>= 0.0-3),
+        data.table (>= 1.11.4), magrittr (>= 1.5), minpack.lm (>=
+        1.2-1), plyr (>= 1.8.4), pracma (>= 2.3.3), stringi (>= 1.2.3),
+        utils, withr (>= 2.1.2)
 License: GPL (>= 3)
 LazyData: true
-RoxygenNote: 6.0.0
+RoxygenNote: 7.1.1
+Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2017-02-03 16:19:36 UTC; balin
+Packaged: 2021-01-27 13:51:23 UTC; rstudio
 Repository: CRAN
-Date/Publication: 2017-02-04 22:32:48
+Date/Publication: 2021-01-29 16:20:02 UTC
