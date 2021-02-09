@@ -1,4 +1,4 @@
-c96101a44254dc9a30c63f28ec944408 *DESCRIPTION
+441d3887b4dc8d56c2635ce0d3508157 *DESCRIPTION
 1e9bfdf60305d057c58b90bfd3217458 *NAMESPACE
 1fe8ed506b958d7eddd59a91aa5eecd2 *R/extract_case_study_data.R
 1f1013447847c33dd1810893334d1ef9 *R/extract_fluorescence_extrema.R
@@ -12,7 +12,7 @@ f9af50892eaa7bd72fa54c122f5bf9e4 *R/parse_manual_output.R
 335211ed5c9daac2c91ea525e4759b9b *R/read_scramblase_input_file.R
 42025d8a15a5b8ea53e5443db9b5c367 *R/scramblase_assay_calculations.R
 a15135187544e8a42eb5e6508632badb *R/scramblase_assay_input_template.R
-d399dc9a4cc2549d98c576f11981bdd4 *R/scramblase_assay_input_validation.R
+56a33fb08291fda8949eb902988c327f *R/scramblase_assay_input_validation.R
 17ed42de500ea42c15a2f12a61094857 *R/scramblase_assay_plot.R
 2d691d89674ea3ff175ab25ed8ef0f01 *R/scramblase_assay_stats.R
 524fbf225582296d4f51c03077186318 *R/scramblase_assay_traces.R
