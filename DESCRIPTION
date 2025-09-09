@@ -11,7 +11,7 @@ Description: The lipid scrambling activity of protein extracts and purified
     M.A., Menon, A.K., and Graumann, J. (2017). "flippant–An R package for the
     automated analysis of fluorescence-based scramblase assays." BMC
     Bioinformatics 18, 146. <DOI:10.1186/s12859-017-1542-y>.
-Version: 1.5.5
+Version: 1.5.7
 Author: Johannes Graumann [cre, aut],
   Richard Cotton [aut]
 Maintainer: Johannes Graumann <johannes.graumann@uni-marburg.de>
@@ -26,9 +26,9 @@ Imports: data.table (>= 1.11.4), magrittr (>= 1.5), methods, minpack.lm
         (>= 1.2-1), plyr (>= 1.8.4), pracma (>= 2.3.3), stringi (>=
         1.2.3), utils, withr (>= 2.1.2)
 License: GPL (>= 3)
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Encoding: UTF-8
 NeedsCompilation: no
-Packaged: 2024-04-09 16:10:29 UTC; rstudio
+Packaged: 2025-09-09 12:54:15 UTC; root
 Repository: CRAN
-Date/Publication: 2024-04-09 16:30:02 UTC
+Date/Publication: 2025-09-09 22:00:11 UTC
